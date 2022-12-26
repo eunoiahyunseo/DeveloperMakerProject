@@ -1,5 +1,6 @@
 package com.hyunseo.programming.dmaker.dto;
 
+import com.hyunseo.programming.dmaker.entity.Developer;
 import com.hyunseo.programming.dmaker.type.DeveloperLevel;
 import com.hyunseo.programming.dmaker.type.DeveloperSkillType;
 import lombok.*;
@@ -51,5 +52,14 @@ public class CreateDeveloper {
         private DeveloperSkillType developerSkillType;
         private Integer experienceYears;
         private String memberId;
+
+        public static Response fromEntity(Developer developer) {
+            return Response.builder()
+                    .developerLevel(developer.getDeveloperLevel())
+                    .developerSkillType(developer.getDeveloperSkillType())
+                    .experienceYears(developer.getExperienceYears())
+                    .memberId(developer.getMemberId())
+                    .build();
+        }
     }
 }
