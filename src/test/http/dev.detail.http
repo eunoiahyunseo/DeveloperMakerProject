@@ -1,2 +1,2 @@
-GET http://localhost:8082/developer/Mini
+GET http://localhost:8082/developer/Micky
 Accept: application/json

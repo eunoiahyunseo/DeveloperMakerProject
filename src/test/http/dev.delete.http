@@ -1,0 +1,2 @@
+DELETE http://localhost:8082/developer/Mini
+Content-Type: application/json

@@ -1,8 +1,7 @@
 package com.hyunseo.programming.dmaker.entity;
 
-import com.hyunseo.programming.dmaker.code.StatusCode;
-import com.hyunseo.programming.dmaker.type.DeveloperSkillType;
 import com.hyunseo.programming.dmaker.type.DeveloperLevel;
+import com.hyunseo.programming.dmaker.type.DeveloperSkillType;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,6 +10,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * @author ihyeonseo
+ * @created 27/12/2022 - 1:56 PM
+ * @project dmaker
+ */
 @Getter
 @Setter
 @Builder
@@ -18,25 +22,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Developer {
+public class RetiredDeveloper {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Enumerated(EnumType.STRING)
-    private DeveloperSkillType developerSkillType;
+    private String memberId;
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private DeveloperLevel developerLevel;
-
-    private Integer experienceYears;
-    private String memberId;
-    private String name;
-    private Integer age;
-
-    @Enumerated(EnumType.STRING)
-    private StatusCode statusCode;
-
     @CreatedDate
     private LocalDateTime createdAt;
 

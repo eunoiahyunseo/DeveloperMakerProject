@@ -3,11 +3,11 @@ POST http://localhost:8082/create-developers
 Content-Type: application/json
 
 {
-  "developerLevel": "JUNIOR",
-  "developerSkillType": "FRONT_END",
-  "experienceYears": 2,
-  "memberId": "Mini2",
-  "name": "Mouse Kim",
-  "age": 20
+  "developerLevel": "SENIOR",
+  "developerSkillType": "BACK_END",
+  "experienceYears": 12,
+  "memberId": "Micky",
+  "name": "Mouse",
+  "age": 23
 }
 
