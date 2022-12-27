@@ -1,10 +1,16 @@
 package com.hyunseo.programming.dmaker.exception;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author ihyeonseo
  * @created 26/12/2022 - 7:41 오후
  * @project dmaker
  */
+
+@Getter
+@Setter
 public class DMakerException extends RuntimeException {
     private DMakerErrorCode dMakerErrorCode;
     private String detailMessage;
