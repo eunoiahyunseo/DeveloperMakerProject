@@ -3,6 +3,7 @@ package com.hyunseo.programming.dmaker.controller;
 import com.hyunseo.programming.dmaker.dto.CreateDeveloper;
 import com.hyunseo.programming.dmaker.dto.DeveloperDetailDto;
 import com.hyunseo.programming.dmaker.dto.DeveloperDto;
+import com.hyunseo.programming.dmaker.dto.EditDeveloper;
 import com.hyunseo.programming.dmaker.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,20 +26,21 @@ public class DMakerController {
     }
 
     @GetMapping("/developer/{memberId}")
-    public DeveloperDetailDto getDeveloperDetail(
-            @PathVariable String memberId
-    ) {
+    public DeveloperDetailDto getDeveloperDetail(@PathVariable String memberId) {
         log.info("GET /developers HTTP/1.1");
         return dMakerService.getDeveloperDetail(memberId);
     }
 
-
     @PostMapping("/create-developers")
-    public CreateDeveloper.Response createDevelopers(
-            @Valid @RequestBody CreateDeveloper.Request request
-    ) {
+    public CreateDeveloper.Response createDevelopers(@Valid @RequestBody CreateDeveloper.Request request) {
         log.info("request : {}", request);
-
         return dMakerService.createDeveloper(request);
+    }
+
+    @PutMapping("/developer/{memberId}")
+    public DeveloperDetailDto editDevelopers(@PathVariable String memberId,
+                                               @Valid @RequestBody EditDeveloper.Request request) {
+
+        return dMakerService.editDeveloper(memberId, request);
     }
 }
