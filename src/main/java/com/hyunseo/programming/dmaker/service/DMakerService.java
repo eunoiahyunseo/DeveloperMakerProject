@@ -57,23 +57,11 @@ public class DMakerService {
         );
     }
 
-    private static void validateDeveloperLevel(
-            DeveloperLevel developerLevel,
-            Integer experienceYears
-    ) {
-        if (experienceYears < developerLevel.getMinExperienceYears() ||
-            experienceYears > developerLevel.getMaxExperienceYears()
-        ) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-    }
-
     private void validateCreateDeveloperRequest(
             @NonNull CreateDeveloper.Request request
     ) {
 
-        validateDeveloperLevel(
-                request.getDeveloperLevel(),
+        request.getDeveloperLevel().validateExperienceYears(
                 request.getExperienceYears()
         );
 
@@ -127,8 +115,7 @@ public class DMakerService {
             EditDeveloper.Request request) {
 
         // validation
-        validateDeveloperLevel(
-                request.getDeveloperLevel(),
+        request.getDeveloperLevel().validateExperienceYears(
                 request.getExperienceYears()
         );
 
