@@ -1,36 +1,26 @@
 package com.hyunseo.programming.dmaker.service;
 
-import com.fasterxml.jackson.databind.deser.std.StdKeyDeserializer;
 import com.hyunseo.programming.dmaker.code.StatusCode;
 import com.hyunseo.programming.dmaker.dto.CreateDeveloper;
 import com.hyunseo.programming.dmaker.dto.DeveloperDetailDto;
-import com.hyunseo.programming.dmaker.dto.DeveloperDto;
 import com.hyunseo.programming.dmaker.entity.Developer;
-import com.hyunseo.programming.dmaker.exception.DMakerErrorCode;
 import com.hyunseo.programming.dmaker.exception.DMakerException;
 import com.hyunseo.programming.dmaker.repository.DeveloperRepository;
-import com.hyunseo.programming.dmaker.repository.RetiredDeveloperRepository;
-import com.hyunseo.programming.dmaker.type.DeveloperLevel;
-import com.hyunseo.programming.dmaker.type.DeveloperSkillType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.hyunseo.programming.dmaker.exception.DMakerErrorCode.DUPLICATED_MEMBER_ID;
-import static com.hyunseo.programming.dmaker.exception.DMakerErrorCode.INTERNAL_SERVER_ERROR;
-import static com.hyunseo.programming.dmaker.type.DeveloperLevel.JUNIOR;
 import static com.hyunseo.programming.dmaker.type.DeveloperLevel.SENIOR;
 import static com.hyunseo.programming.dmaker.type.DeveloperSkillType.FRONT_END;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -62,8 +52,6 @@ class DMakerServiceTest {
             .build();
     @Mock
     private DeveloperRepository developerRepository;
-    @Mock
-    private RetiredDeveloperRepository retiredDeveloperRepository;
     @InjectMocks
     private DMakerService dMakerService;
 
@@ -87,6 +75,9 @@ class DMakerServiceTest {
         //given
         given(developerRepository.findByMemberId(anyString()))
                 .willReturn(Optional.empty());
+
+        given(developerRepository.save(any()))
+                .willReturn(defaultDeveloper);
 
         ArgumentCaptor<Developer> captor =
                 ArgumentCaptor.forClass(Developer.class);
@@ -120,10 +111,7 @@ class DMakerServiceTest {
                 () -> dMakerService.createDeveloper(defaultCreateRequest)
         );
 
-//        assertEquals(DUPLICATED_MEMBER_ID, dMakerException.getDMakerErrorCode());
-        assertEquals(INTERNAL_SERVER_ERROR, dMakerException.getDMakerErrorCode());
-
-
-
+        assertEquals(DUPLICATED_MEMBER_ID, dMakerException.getDMakerErrorCode());
+        // assertEquals(INTERNAL_SERVER_ERROR, dMakerException.getDMakerErrorCode());
     }
 }

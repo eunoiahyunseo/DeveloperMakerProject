@@ -1,6 +1,7 @@
 package com.hyunseo.programming.dmaker.entity;
 
 import com.hyunseo.programming.dmaker.code.StatusCode;
+import com.hyunseo.programming.dmaker.dto.CreateDeveloper;
 import com.hyunseo.programming.dmaker.type.DeveloperSkillType;
 import com.hyunseo.programming.dmaker.type.DeveloperLevel;
 import lombok.*;
@@ -42,4 +43,6 @@ public class Developer {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+
 }

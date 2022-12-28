@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -25,37 +26,33 @@ public class DMakerController {
         return dMakerService.getAllEmployedDevelopers();
     }
 
+    @Transactional
     @GetMapping("/developer/{memberId}")
-    public DeveloperDetailDto getDeveloperDetail(@PathVariable String memberId) {
+    public DeveloperDetailDto getDeveloperDetail(
+            @PathVariable final String memberId) {
         log.info("GET /developers HTTP/1.1");
+
         return dMakerService.getDeveloperDetail(memberId);
     }
 
     @PostMapping("/create-developers")
-    public CreateDeveloper.Response createDevelopers(@Valid @RequestBody CreateDeveloper.Request request) {
+    public CreateDeveloper.Response createDevelopers(
+            @Valid @RequestBody final CreateDeveloper.Request request) {
         log.info("request : {}", request);
-
-//        DeveloperValidationDto developerValidationDto =
-//                dMakerService.validateCreateDeveloperRequest(request);
-
-//        if(developerValidationDto != null) {
-//            return CreateDeveloper.Response.builder()
-//                    .errorCode(developerValidationDto.getErrorCode())
-//                    .errorMessage(developerValidationDto.getErrorMessage())
-//                    .build();
-//        }
 
         return dMakerService.createDeveloper(request);
     }
 
     @PutMapping("/developer/{memberId}")
-    public DeveloperDetailDto editDevelopers(@PathVariable String memberId,
-                                             @Valid @RequestBody EditDeveloper.Request request) {
+    public DeveloperDetailDto editDevelopers(
+            @PathVariable final String memberId,
+            @Valid @RequestBody final EditDeveloper.Request request) {
         return dMakerService.editDeveloper(memberId, request);
     }
 
     @DeleteMapping("/developer/{memberId}")
-    public DeveloperDetailDto deleteDeveloper(@PathVariable String memberId) {
+    public DeveloperDetailDto deleteDeveloper(
+            @PathVariable final String memberId) {
         return dMakerService.deleteDeveloper(memberId);
     }
 }
