@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.hyunseo.programming.dmaker.constant.DMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS;
+import static com.hyunseo.programming.dmaker.constant.DMakerConstant.MIN_SENIOR_EXPERIENCE_YEARS;
 import static com.hyunseo.programming.dmaker.exception.DMakerErrorCode.*;
 
 @Service
@@ -59,18 +61,9 @@ public class DMakerService {
             DeveloperLevel developerLevel,
             Integer experienceYears
     ) {
-        if (developerLevel == DeveloperLevel.SENIOR
-                && experienceYears < 10) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-
-        if (developerLevel == DeveloperLevel.JUNGNIOR
-                && (experienceYears < 4 || experienceYears > 10)) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-
-        if (developerLevel == DeveloperLevel.JUNIOR
-                && experienceYears > 4) {
+        if (experienceYears < developerLevel.getMinExperienceYears() ||
+            experienceYears > developerLevel.getMaxExperienceYears()
+        ) {
             throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
         }
     }
